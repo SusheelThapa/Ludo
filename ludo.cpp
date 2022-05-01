@@ -445,6 +445,9 @@ void loadLudoGameBoard()
         small_block.x = LUDO_BOARD_WIDTH / 15;
         small_block.y = LUDO_BOARD_HEIGHT / 15 * 10;
     }
+
+    diceRotate();
+    SDL_RenderPresent(ludo_game_board_renderer);
 }
 
 void drawStar(int i, int j)
@@ -461,4 +464,138 @@ void drawStar(int i, int j)
     SDL_RenderDrawLine(ludo_game_board_renderer, j + LUDO_BOARD_WIDTH / 15 * 3 / 110.0, i + LUDO_BOARD_HEIGHT / 15 * 38 / 110.0, j + LUDO_BOARD_WIDTH / 15 * 107 / 110.0, i + LUDO_BOARD_HEIGHT / 15 * 38 / 110.0);
 
     return;
+}
+
+int diceRotate()
+{
+
+    /*
+
+    The is the representation of the real dice where * denote the block dot over the dice.
+    And the number of the side denote the position of the dot
+    _____________       _____________
+    | * | * | * |       | 1 | 2 | 3 |
+    -------------       -------------
+    | * | * | * |       | 4 | 5 | 6 |
+    -------------       -------------
+    | * | * | * |       | 7 | 8 | 9 |
+    -------------       -------------
+
+    SIX in the dice:
+    To make six in the dice we have to render the black dot at position
+    1,3,4,6,7,9
+    _____________       _____________
+    | * |   | * |       | 1 |   | 3 |
+    -------------       -------------
+    | * |   | * |       | 4 |   | 6 |
+    -------------       -------------
+    | * |   | * |       | 7 |   | 9 |
+    -------------       -------------
+
+    THREE in the dice:
+    To make six in the dice we have to render the black dot at position
+    2,5 8
+    _____________       _____________
+    |   | * |   |       |   | 2 |   |
+    -------------       -------------
+    |   | * |   |       |   | 5 |   |
+    -------------       -------------
+    |   | * |   |       |   | 8 |   |
+    -------------       -------------
+
+    FOUR in the dice:
+    To make six in the dice we have to render the black dot at position
+    1,3,7,9
+    _____________       _____________
+    | * |   | * |       | 1 |   | 3 |
+    -------------       -------------
+    |   |   |   |       |   |   |   |
+    -------------       -------------
+    | * |   | * |       | 7 |   | 9 |
+    -------------       -------------
+
+    Similarly, goes for the over value over the DICE.
+
+    */
+
+    int dice_rotate_value;
+    SDL_Rect dice_black_dot_rectangle = {0, 0, 8, 8};
+
+    SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 0, 0, 255);
+
+    dice_rotate_value = rand() % 6 + 1;
+
+    if (dice_rotate_value == 4 || dice_rotate_value == 6 || dice_rotate_value == 5)
+    {
+        /* At Position 1 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 6 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 6 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 3)
+    {
+        /* At Position 2 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 7 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 6 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 4 || dice_rotate_value == 5 || dice_rotate_value == 6)
+    {
+        /* At Position 3 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 8 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 6 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 2 || dice_rotate_value == 6)
+    {
+        /* At Position 4 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 6 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 7 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 3 || dice_rotate_value == 1 || dice_rotate_value == 5)
+    {
+        /* At Position 5 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 7 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 7 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 2 || dice_rotate_value == 6)
+    {
+        /* At Position 6 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 8 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 7 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 4 || dice_rotate_value == 6 || dice_rotate_value == 5)
+    {
+        /* At Position 7 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 6 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 8 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 3)
+    {
+        /* At Position 8 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 7 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 8 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    if (dice_rotate_value == 4 || dice_rotate_value == 6 || dice_rotate_value == 5)
+    {
+        /* At Position 9 */
+        dice_black_dot_rectangle.x = LUDO_BOARD_WIDTH / 15 * 8 + 26;
+        dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 8 + 26;
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
+    }
+
+    return dice_rotate_value;
 }
