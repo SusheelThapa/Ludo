@@ -1,7 +1,224 @@
 #include "ludo.hpp"
 
-RedLudoPiece red_piece;
+RedLudoPiece red_piece_one = RedLudoPiece({4, 1});
+RedLudoPiece red_piece_two = RedLudoPiece({1, 1});
+RedLudoPiece red_piece_three = RedLudoPiece({1, 4});
+RedLudoPiece red_piece_four = RedLudoPiece({4, 4});
 
+GreenLudoPiece green_piece_one = GreenLudoPiece({10, 1});
+GreenLudoPiece green_piece_two = GreenLudoPiece({13, 1});
+GreenLudoPiece green_piece_three = GreenLudoPiece({10, 4});
+GreenLudoPiece green_piece_four = GreenLudoPiece({13, 4});
+
+BlueLudoPiece blue_piece_one = BlueLudoPiece({1, 10});
+BlueLudoPiece blue_piece_two = BlueLudoPiece({4, 10});
+BlueLudoPiece blue_piece_three = BlueLudoPiece({1, 13});
+BlueLudoPiece blue_piece_four = BlueLudoPiece({4, 13});
+
+YellowLudoPiece yellow_piece_one = YellowLudoPiece({10, 10});
+YellowLudoPiece yellow_piece_two = YellowLudoPiece({13, 10});
+YellowLudoPiece yellow_piece_three = YellowLudoPiece({10, 13});
+YellowLudoPiece yellow_piece_four = YellowLudoPiece({13, 13});
+
+/*
+=============================================================
+    <---Starting of the Ludo Piece Class---->
+*/
+
+LudoPiece::LudoPiece()
+{
+    // Empty constructor
+}
+
+LudoPiece::~LudoPiece()
+{
+    // Empty destructor
+}
+
+// Costructor overloading
+LudoPiece::LudoPiece(SDL_Point render_position)
+{
+    this->render_position = render_position;
+}
+
+void LudoPiece::setRenderPosition(SDL_Point render_position)
+{
+    this->render_position = render_position;
+}
+
+SDL_Point LudoPiece::getRenderPosition()
+{
+    return this->render_position;
+}
+
+void LudoPiece::render()
+{
+
+    SDL_Rect render_quad = {LUDO_BOARD_WIDTH / 15 * this->getRenderPosition().x + (LUDO_BOARD_WIDTH / 15 - 30) / 2, LUDO_BOARD_HEIGHT / 15 * this->getRenderPosition().y + (LUDO_BOARD_HEIGHT / 15 - 30) / 2, 30, 30};
+
+    SDL_RenderFillRect(ludo_game_board_renderer, &render_quad);
+}
+/*
+    <----Ending of the Ludo Piece Class----->
+====================================================================
+*/
+
+/*
+==================================================
+    <----Starting of the RedLudoPiece---->
+*/
+
+RedLudoPiece::RedLudoPiece()
+{
+    render_position_movement_index = -1;
+    status = HOME;
+}
+RedLudoPiece::~RedLudoPiece()
+{
+    // Empty destructor
+}
+
+// Constructor overloading
+RedLudoPiece::RedLudoPiece(SDL_Point render_position)
+{
+    this->setRenderPosition(render_position);
+}
+
+SDL_Point RedLudoPiece ::getRenderPositionMovement(int dice_value)
+{
+    render_position_movement_index += dice_value;
+    return render_position_movement[render_position_movement_index];
+}
+
+void RedLudoPiece::renderLudoRedPiece()
+{
+    SDL_SetRenderDrawColor(ludo_game_board_renderer, 200, 0, 0, 255);
+    this->render();
+}
+
+/*
+    <----Ending of the RedLudoPiece---->
+==================================================
+*/
+
+/*
+==================================================
+    <----Starting of the GreenLudoPiece---->
+*/
+
+GreenLudoPiece::GreenLudoPiece()
+{
+    render_position_movement_index = -1;
+    status = HOME;
+}
+GreenLudoPiece::~GreenLudoPiece()
+{
+    // Empty destructor
+}
+
+// Constructor overloading
+GreenLudoPiece::GreenLudoPiece(SDL_Point render_position)
+{
+    this->setRenderPosition(render_position);
+}
+
+SDL_Point GreenLudoPiece ::getRenderPositionMovement(int dice_value)
+{
+    render_position_movement_index += dice_value;
+    return render_position_movement[render_position_movement_index];
+}
+
+void GreenLudoPiece::renderLudoGreenPiece()
+{
+    SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 200, 0, 255);
+    this->render();
+}
+
+/*
+    <----Ending of the RedLudoPiece---->
+==================================================
+*/
+
+/*
+==================================================
+    <----Starting of the BlueLudoPiece---->
+*/
+
+BlueLudoPiece::BlueLudoPiece()
+{
+    render_position_movement_index = -1;
+    status = HOME;
+}
+BlueLudoPiece::~BlueLudoPiece()
+{
+    // Empty destructor
+}
+
+// Constructor overloading
+BlueLudoPiece::BlueLudoPiece(SDL_Point render_position)
+{
+    this->setRenderPosition(render_position);
+}
+
+SDL_Point BlueLudoPiece ::getRenderPositionMovement(int dice_value)
+{
+    render_position_movement_index += dice_value;
+    return render_position_movement[render_position_movement_index];
+}
+
+void BlueLudoPiece::renderLudoBluePiece()
+{
+    SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 0, 200, 255);
+    this->render();
+}
+/*
+    <----Ending of BlueLudoPiece---->
+==================================================
+*/
+
+/*
+==================================================
+    <----Starting of the YellowLudoPiece---->
+*/
+
+YellowLudoPiece::YellowLudoPiece()
+{
+    render_position_movement_index = -1;
+    status = HOME;
+}
+YellowLudoPiece::~YellowLudoPiece()
+{
+    // Empty destructor
+}
+
+// Constructor overloading
+YellowLudoPiece::YellowLudoPiece(SDL_Point render_position)
+{
+    this->setRenderPosition(render_position);
+}
+
+SDL_Point YellowLudoPiece ::getRenderPositionMovement(int dice_value)
+{
+    render_position_movement_index += dice_value;
+    return render_position_movement[render_position_movement_index];
+}
+
+void YellowLudoPiece::renderLudoYellowPiece()
+{
+    SDL_SetRenderDrawColor(ludo_game_board_renderer, 200, 200, 0, 255);
+    this->render();
+}
+
+/*
+    <----Ending of YellowLudoPiece---->
+==================================================
+*/
+
+/*
+=======================
+Helper Function
+=======================
+*/
 bool initializeLudoGame()
 {
 
@@ -601,10 +818,23 @@ int diceRotate()
 
 void loadLudoGamePieces()
 {
-    for (int i = 0; i < 57; i++)
-    {
-        red_piece.setRenderPosition(red_piece.getRenderPositionMovement(i));
-        red_piece.render();
-        SDL_Delay(20);
-    }
+    red_piece_one.renderLudoRedPiece();
+    red_piece_two.renderLudoRedPiece();
+    red_piece_three.renderLudoRedPiece();
+    red_piece_four.renderLudoRedPiece();
+
+    green_piece_one.renderLudoGreenPiece();
+    green_piece_two.renderLudoGreenPiece();
+    green_piece_three.renderLudoGreenPiece();
+    green_piece_four.renderLudoGreenPiece();
+
+    blue_piece_one.renderLudoBluePiece();
+    blue_piece_two.renderLudoBluePiece();
+    blue_piece_three.renderLudoBluePiece();
+    blue_piece_four.renderLudoBluePiece();
+
+    yellow_piece_one.renderLudoYellowPiece();
+    yellow_piece_two.renderLudoYellowPiece();
+    yellow_piece_three.renderLudoYellowPiece();
+    yellow_piece_four.renderLudoYellowPiece();
 }
