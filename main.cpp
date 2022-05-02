@@ -1,4 +1,3 @@
-
 #include "ludo.cpp"
 
 int main()
@@ -24,14 +23,8 @@ int main()
                     }
                 }
 
-                for (int i = 0; i < 10; i++)
-                {
-                    loadLudoGameBoard();
-                    SDL_RenderPresent(ludo_game_board_renderer);
-                    SDL_Delay(200);
-                }
-                exit(0);
-
+                loadLudoGameBoard();
+                loadLudoGamePieces();
                 SDL_RenderPresent(ludo_game_board_renderer);
             }
         }

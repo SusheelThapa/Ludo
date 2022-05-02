@@ -1,5 +1,7 @@
 #include "ludo.hpp"
 
+RedLudoPiece red_piece;
+
 bool initializeLudoGame()
 {
 
@@ -445,9 +447,6 @@ void loadLudoGameBoard()
         small_block.x = LUDO_BOARD_WIDTH / 15;
         small_block.y = LUDO_BOARD_HEIGHT / 15 * 10;
     }
-
-    diceRotate();
-    SDL_RenderPresent(ludo_game_board_renderer);
 }
 
 void drawStar(int i, int j)
@@ -598,4 +597,14 @@ int diceRotate()
     }
 
     return dice_rotate_value;
+}
+
+void loadLudoGamePieces()
+{
+    for (int i = 0; i < 57; i++)
+    {
+        red_piece.setRenderPosition(red_piece.getRenderPositionMovement(i));
+        red_piece.render();
+        SDL_Delay(20);
+    }
 }
