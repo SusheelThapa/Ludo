@@ -26,6 +26,7 @@ int main()
                 loadLudoGameBoard();
                 loadLudoGamePieces();
                 SDL_RenderPresent(ludo_game_board_renderer);
+                SDL_Delay(300);
             }
         }
         else

@@ -86,7 +86,14 @@ RedLudoPiece::RedLudoPiece(SDL_Point render_position)
 
 SDL_Point RedLudoPiece ::getRenderPositionMovement(int dice_value)
 {
-    render_position_movement_index += dice_value;
+    if (render_position_movement_index + dice_value > 55)
+    {
+        render_position_movement_index = 0;
+    }
+    else
+    {
+        render_position_movement_index += dice_value;
+    }
     return render_position_movement[render_position_movement_index];
 }
 
@@ -124,7 +131,21 @@ GreenLudoPiece::GreenLudoPiece(SDL_Point render_position)
 
 SDL_Point GreenLudoPiece ::getRenderPositionMovement(int dice_value)
 {
-    render_position_movement_index += dice_value;
+    if (render_position_movement_index > 55)
+    {
+        render_position_movement_index = 0;
+    }
+    else
+    {
+        if (render_position_movement_index > 55)
+        {
+            render_position_movement_index = 0;
+        }
+        else
+        {
+            render_position_movement_index += dice_value;
+        }
+    }
     return render_position_movement[render_position_movement_index];
 }
 
@@ -162,7 +183,14 @@ BlueLudoPiece::BlueLudoPiece(SDL_Point render_position)
 
 SDL_Point BlueLudoPiece ::getRenderPositionMovement(int dice_value)
 {
-    render_position_movement_index += dice_value;
+    if (render_position_movement_index > 55)
+    {
+        render_position_movement_index = 0;
+    }
+    else
+    {
+        render_position_movement_index += dice_value;
+    }
     return render_position_movement[render_position_movement_index];
 }
 
@@ -199,7 +227,14 @@ YellowLudoPiece::YellowLudoPiece(SDL_Point render_position)
 
 SDL_Point YellowLudoPiece ::getRenderPositionMovement(int dice_value)
 {
-    render_position_movement_index += dice_value;
+    if (render_position_movement_index > 55)
+    {
+        render_position_movement_index = 0;
+    }
+    else
+    {
+        render_position_movement_index += dice_value;
+    }
     return render_position_movement[render_position_movement_index];
 }
 
@@ -818,21 +853,25 @@ int diceRotate()
 
 void loadLudoGamePieces()
 {
+    red_piece_one.setRenderPosition(red_piece_one.getRenderPositionMovement(1));
     red_piece_one.renderLudoRedPiece();
     red_piece_two.renderLudoRedPiece();
     red_piece_three.renderLudoRedPiece();
     red_piece_four.renderLudoRedPiece();
 
+    green_piece_one.setRenderPosition(green_piece_one.getRenderPositionMovement(1));
     green_piece_one.renderLudoGreenPiece();
     green_piece_two.renderLudoGreenPiece();
     green_piece_three.renderLudoGreenPiece();
     green_piece_four.renderLudoGreenPiece();
 
+    blue_piece_one.setRenderPosition(blue_piece_one.getRenderPositionMovement(1));
     blue_piece_one.renderLudoBluePiece();
     blue_piece_two.renderLudoBluePiece();
     blue_piece_three.renderLudoBluePiece();
     blue_piece_four.renderLudoBluePiece();
 
+    yellow_piece_one.setRenderPosition(yellow_piece_one.getRenderPositionMovement(1));
     yellow_piece_one.renderLudoYellowPiece();
     yellow_piece_two.renderLudoYellowPiece();
     yellow_piece_three.renderLudoYellowPiece();
