@@ -68,11 +68,11 @@ void LudoPiece::render()
     <----Starting of the RedLudoPiece---->
 */
 
-RedLudoPiece::RedLudoPiece()
+RedLudoPiece::RedLudoPiece() : LudoPiece()
 {
     render_position_movement_index = -1;
-    status = HOME;
 }
+
 RedLudoPiece::~RedLudoPiece()
 {
     // Empty destructor
@@ -81,20 +81,27 @@ RedLudoPiece::~RedLudoPiece()
 // Constructor overloading
 RedLudoPiece::RedLudoPiece(SDL_Point render_position)
 {
+    render_position_movement_index = -1;
+
     this->setRenderPosition(render_position);
 }
 
 SDL_Point RedLudoPiece ::getRenderPositionMovement(int dice_value)
 {
-    if (render_position_movement_index + dice_value > 55)
-    {
-        render_position_movement_index = 0;
-    }
-    else
-    {
-        render_position_movement_index += dice_value;
-    }
+
+    render_position_movement_index += dice_value;
+    std::cout << render_position_movement_index << std::endl;
     return render_position_movement[render_position_movement_index];
+}
+
+void RedLudoPiece::setStatus(Status_Of_Ludo_Piece status)
+{
+    this->status = status;
+}
+
+Status_Of_Ludo_Piece RedLudoPiece::getStatus()
+{
+    return status;
 }
 
 void RedLudoPiece::renderLudoRedPiece()
@@ -320,6 +327,8 @@ bool loadLudoGame()
         status = false;
     }
 
+    current_turn = RED_PIECE;
+    dice_rotate_value = 0;
     return status;
 }
 
@@ -717,7 +726,7 @@ void drawStar(int i, int j)
     return;
 }
 
-int diceRotate()
+void loadDice()
 {
 
     /*
@@ -769,12 +778,9 @@ int diceRotate()
 
     */
 
-    int dice_rotate_value;
     SDL_Rect dice_black_dot_rectangle = {0, 0, 8, 8};
 
     SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 0, 0, 255);
-
-    dice_rotate_value = rand() % 6 + 1;
 
     if (dice_rotate_value == 4 || dice_rotate_value == 6 || dice_rotate_value == 5)
     {
@@ -847,31 +853,59 @@ int diceRotate()
         dice_black_dot_rectangle.y = LUDO_BOARD_HEIGHT / 15 * 8 + 26;
         SDL_RenderFillRect(ludo_game_board_renderer, &dice_black_dot_rectangle);
     }
+}
 
-    return dice_rotate_value;
+void updateLudoGamePieces(int dice_rotate_value)
+{
+
+    if (red_piece_one.getStatus() == HOME)
+    {
+        if (dice_rotate_value == 1)
+        {
+            red_piece_one.setStatus(RUNNING);
+            red_piece_one.setRenderPosition(red_piece_one.getRenderPositionMovement(dice_rotate_value));
+            // std::cout << "Render position value : " << red_piece_one.getRenderPosition().x << " " << red_piece_one.getRenderPosition().y << std::endl;
+        }
+    }
+    else if (red_piece_one.getStatus() == RUNNING)
+    {
+
+        if (red_piece_one.getRenderPositionMovement() + dice_rotate_value == 56)
+        {
+            red_piece_one.setStatus(COMPLETED);
+            std::cout << "Game over";
+            red_piece_one.setRenderPosition({0, 14});
+        }
+
+        if (red_piece_one.getRenderPositionMovement() + dice_rotate_value < 56)
+        {
+            red_piece_one.setRenderPosition(red_piece_one.getRenderPositionMovement(dice_rotate_value));
+        }
+    }
+}
+
+void diceRotate()
+{
+    dice_rotate_value = rand() % 6 + 1;
 }
 
 void loadLudoGamePieces()
 {
-    red_piece_one.setRenderPosition(red_piece_one.getRenderPositionMovement(1));
     red_piece_one.renderLudoRedPiece();
     red_piece_two.renderLudoRedPiece();
     red_piece_three.renderLudoRedPiece();
     red_piece_four.renderLudoRedPiece();
 
-    green_piece_one.setRenderPosition(green_piece_one.getRenderPositionMovement(1));
     green_piece_one.renderLudoGreenPiece();
     green_piece_two.renderLudoGreenPiece();
     green_piece_three.renderLudoGreenPiece();
     green_piece_four.renderLudoGreenPiece();
 
-    blue_piece_one.setRenderPosition(blue_piece_one.getRenderPositionMovement(1));
     blue_piece_one.renderLudoBluePiece();
     blue_piece_two.renderLudoBluePiece();
     blue_piece_three.renderLudoBluePiece();
     blue_piece_four.renderLudoBluePiece();
 
-    yellow_piece_one.setRenderPosition(yellow_piece_one.getRenderPositionMovement(1));
     yellow_piece_one.renderLudoYellowPiece();
     yellow_piece_two.renderLudoYellowPiece();
     yellow_piece_three.renderLudoYellowPiece();

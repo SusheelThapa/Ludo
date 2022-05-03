@@ -21,10 +21,17 @@ int main()
                     {
                         quit = true;
                     }
+                    if (ludo_game_events.key.keysym.sym == SDLK_d && ludo_game_events.type == SDL_KEYDOWN)
+                    {
+                        diceRotate();
+                        std::cout << dice_rotate_value << std::endl;
+                        updateLudoGamePieces(dice_rotate_value);
+                    }
                 }
 
                 loadLudoGameBoard();
                 loadLudoGamePieces();
+                loadDice();
                 SDL_RenderPresent(ludo_game_board_renderer);
                 SDL_Delay(300);
             }
