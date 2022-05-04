@@ -27,18 +27,19 @@ YellowLudoPiece yellow_piece_four = YellowLudoPiece({13, 13});
 
 LudoPiece::LudoPiece()
 {
-    // Empty constructor
+    render_position_movement_index = -1;
+    status = HOME;
+}
+LudoPiece::LudoPiece(SDL_Point render_position)
+{
+    render_position_movement_index = -1;
+    status = HOME;
+    this->render_position = render_position;
 }
 
 LudoPiece::~LudoPiece()
 {
     // Empty destructor
-}
-
-// Costructor overloading
-LudoPiece::LudoPiece(SDL_Point render_position)
-{
-    this->render_position = render_position;
 }
 
 void LudoPiece::setRenderPosition(SDL_Point render_position)
@@ -51,6 +52,24 @@ SDL_Point LudoPiece::getRenderPosition()
     return this->render_position;
 }
 
+void LudoPiece::setStatus(Status_Of_Ludo_Piece status)
+{
+    this->status = status;
+}
+
+Status_Of_Ludo_Piece LudoPiece::getStatus()
+{
+    return this->status;
+}
+
+void LudoPiece::setRenderPositionMovementIndex(int value)
+{
+    this->render_position_movement_index = value;
+}
+int LudoPiece::getRenderPositionMovementIndex()
+{
+    return this->render_position_movement_index;
+}
 void LudoPiece::render()
 {
 
@@ -70,7 +89,10 @@ void LudoPiece::render()
 
 RedLudoPiece::RedLudoPiece() : LudoPiece()
 {
-    render_position_movement_index = -1;
+}
+
+RedLudoPiece::RedLudoPiece(SDL_Point render_position) : LudoPiece(render_position)
+{
 }
 
 RedLudoPiece::~RedLudoPiece()
@@ -78,33 +100,37 @@ RedLudoPiece::~RedLudoPiece()
     // Empty destructor
 }
 
-// Constructor overloading
-RedLudoPiece::RedLudoPiece(SDL_Point render_position)
-{
-    render_position_movement_index = -1;
-
-    this->setRenderPosition(render_position);
-}
-
-SDL_Point RedLudoPiece ::getRenderPositionMovement(int dice_value)
+void RedLudoPiece ::updateRedPiece()
 {
 
-    render_position_movement_index += dice_value;
-    std::cout << render_position_movement_index << std::endl;
-    return render_position_movement[render_position_movement_index];
+    if (this->getStatus() == HOME)
+    {
+        if (dice_rotate_value == 1)
+        {
+            this->setStatus(RUNNING);
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+        }
+    }
+    else if (this->getStatus() == RUNNING)
+    {
+        if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
+        {
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+            std::cout << this->getRenderPositionMovementIndex() << std::endl;
+        }
+        else if (this->getRenderPositionMovementIndex() + dice_rotate_value == 56)
+        {
+            this->setRenderPosition({0, 14});
+        }
+    }
+    else if (this->getStatus() == COMPLETED)
+    {
+    }
 }
 
-void RedLudoPiece::setStatus(Status_Of_Ludo_Piece status)
-{
-    this->status = status;
-}
-
-Status_Of_Ludo_Piece RedLudoPiece::getStatus()
-{
-    return status;
-}
-
-void RedLudoPiece::renderLudoRedPiece()
+void RedLudoPiece::renderRedPiece()
 {
     SDL_SetRenderDrawColor(ludo_game_board_renderer, 200, 0, 0, 255);
     this->render();
@@ -120,43 +146,47 @@ void RedLudoPiece::renderLudoRedPiece()
     <----Starting of the GreenLudoPiece---->
 */
 
-GreenLudoPiece::GreenLudoPiece()
+GreenLudoPiece::GreenLudoPiece() : LudoPiece()
 {
-    render_position_movement_index = -1;
-    status = HOME;
+}
+GreenLudoPiece::GreenLudoPiece(SDL_Point render_position) : LudoPiece(render_position)
+{
 }
 GreenLudoPiece::~GreenLudoPiece()
 {
     // Empty destructor
 }
 
-// Constructor overloading
-GreenLudoPiece::GreenLudoPiece(SDL_Point render_position)
+void GreenLudoPiece ::updateGreenPiece()
 {
-    this->setRenderPosition(render_position);
-}
 
-SDL_Point GreenLudoPiece ::getRenderPositionMovement(int dice_value)
-{
-    if (render_position_movement_index > 55)
+    if (this->getStatus() == HOME)
     {
-        render_position_movement_index = 0;
-    }
-    else
-    {
-        if (render_position_movement_index > 55)
+        if (dice_rotate_value == 1)
         {
-            render_position_movement_index = 0;
-        }
-        else
-        {
-            render_position_movement_index += dice_value;
+            this->setStatus(RUNNING);
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
         }
     }
-    return render_position_movement[render_position_movement_index];
+    else if (this->getStatus() == RUNNING)
+    {
+        if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
+        {
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+            std::cout << this->getRenderPositionMovementIndex() << std::endl;
+        }
+        else if (this->getRenderPositionMovementIndex() + dice_rotate_value == 56)
+        {
+            this->setRenderPosition({1, 14});
+        }
+    }
+    else if (this->getStatus() == COMPLETED)
+    {
+    }
 }
-
-void GreenLudoPiece::renderLudoGreenPiece()
+void GreenLudoPiece::renderGreenPiece()
 {
     SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 200, 0, 255);
     this->render();
@@ -174,34 +204,45 @@ void GreenLudoPiece::renderLudoGreenPiece()
 
 BlueLudoPiece::BlueLudoPiece()
 {
-    render_position_movement_index = -1;
-    status = HOME;
+}
+BlueLudoPiece::BlueLudoPiece(SDL_Point render_position) : LudoPiece(render_position)
+{
 }
 BlueLudoPiece::~BlueLudoPiece()
 {
     // Empty destructor
 }
 
-// Constructor overloading
-BlueLudoPiece::BlueLudoPiece(SDL_Point render_position)
+void BlueLudoPiece ::updateBluePiece()
 {
-    this->setRenderPosition(render_position);
-}
 
-SDL_Point BlueLudoPiece ::getRenderPositionMovement(int dice_value)
-{
-    if (render_position_movement_index > 55)
+    if (this->getStatus() == HOME)
     {
-        render_position_movement_index = 0;
+        if (dice_rotate_value == 1)
+        {
+            this->setStatus(RUNNING);
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+        }
     }
-    else
+    else if (this->getStatus() == RUNNING)
     {
-        render_position_movement_index += dice_value;
+        if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
+        {
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+            std::cout << this->getRenderPositionMovementIndex() << std::endl;
+        }
+        else if (this->getRenderPositionMovementIndex() + dice_rotate_value == 56)
+        {
+            this->setRenderPosition({0, 14});
+        }
     }
-    return render_position_movement[render_position_movement_index];
+    else if (this->getStatus() == COMPLETED)
+    {
+    }
 }
-
-void BlueLudoPiece::renderLudoBluePiece()
+void BlueLudoPiece::renderBluePiece()
 {
     SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 0, 200, 255);
     this->render();
@@ -218,34 +259,45 @@ void BlueLudoPiece::renderLudoBluePiece()
 
 YellowLudoPiece::YellowLudoPiece()
 {
-    render_position_movement_index = -1;
-    status = HOME;
+}
+YellowLudoPiece::YellowLudoPiece(SDL_Point render_position) : LudoPiece(render_position)
+{
 }
 YellowLudoPiece::~YellowLudoPiece()
 {
     // Empty destructor
 }
 
-// Constructor overloading
-YellowLudoPiece::YellowLudoPiece(SDL_Point render_position)
+void YellowLudoPiece ::updateYellowPiece()
 {
-    this->setRenderPosition(render_position);
-}
 
-SDL_Point YellowLudoPiece ::getRenderPositionMovement(int dice_value)
-{
-    if (render_position_movement_index > 55)
+    if (this->getStatus() == HOME)
     {
-        render_position_movement_index = 0;
+        if (dice_rotate_value == 1)
+        {
+            this->setStatus(RUNNING);
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+        }
     }
-    else
+    else if (this->getStatus() == RUNNING)
     {
-        render_position_movement_index += dice_value;
+        if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
+        {
+            this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
+            this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+            std::cout << this->getRenderPositionMovementIndex() << std::endl;
+        }
+        else if (this->getRenderPositionMovementIndex() + dice_rotate_value == 56)
+        {
+            this->setRenderPosition({0, 14});
+        }
     }
-    return render_position_movement[render_position_movement_index];
+    else if (this->getStatus() == COMPLETED)
+    {
+    }
 }
-
-void YellowLudoPiece::renderLudoYellowPiece()
+void YellowLudoPiece::renderYellowPiece()
 {
     SDL_SetRenderDrawColor(ludo_game_board_renderer, 200, 200, 0, 255);
     this->render();
@@ -728,6 +780,29 @@ void drawStar(int i, int j)
 
 void loadDice()
 {
+    SDL_Rect dice_rectangle = {LUDO_BOARD_WIDTH / 15 * 6, LUDO_BOARD_WIDTH / 15 * 6, LUDO_BOARD_WIDTH / 15 * 3, LUDO_BOARD_WIDTH / 15 * 3};
+    switch (current_turn)
+    {
+    case RED_PIECE:
+        SDL_SetRenderDrawColor(ludo_game_board_renderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_rectangle);
+        break;
+
+    case GREEN_PIECE:
+        SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 255, 0, 255);
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_rectangle);
+        break;
+
+    case YELLOW_PIECE:
+        SDL_SetRenderDrawColor(ludo_game_board_renderer, 255, 255, 0, 255);
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_rectangle);
+        break;
+
+    case BLUE_PIECE:
+        SDL_SetRenderDrawColor(ludo_game_board_renderer, 0, 0, 255, 255);
+        SDL_RenderFillRect(ludo_game_board_renderer, &dice_rectangle);
+        break;
+    }
 
     /*
 
@@ -855,59 +930,31 @@ void loadDice()
     }
 }
 
-void updateLudoGamePieces(int dice_rotate_value)
-{
-
-    if (red_piece_one.getStatus() == HOME)
-    {
-        if (dice_rotate_value == 1)
-        {
-            red_piece_one.setStatus(RUNNING);
-            red_piece_one.setRenderPosition(red_piece_one.getRenderPositionMovement(dice_rotate_value));
-            // std::cout << "Render position value : " << red_piece_one.getRenderPosition().x << " " << red_piece_one.getRenderPosition().y << std::endl;
-        }
-    }
-    else if (red_piece_one.getStatus() == RUNNING)
-    {
-
-        if (red_piece_one.getRenderPositionMovement() + dice_rotate_value == 56)
-        {
-            red_piece_one.setStatus(COMPLETED);
-            std::cout << "Game over";
-            red_piece_one.setRenderPosition({0, 14});
-        }
-
-        if (red_piece_one.getRenderPositionMovement() + dice_rotate_value < 56)
-        {
-            red_piece_one.setRenderPosition(red_piece_one.getRenderPositionMovement(dice_rotate_value));
-        }
-    }
-}
-
 void diceRotate()
 {
     dice_rotate_value = rand() % 6 + 1;
+    std::cout << "Dice rotate value = " << dice_rotate_value << std::endl;
 }
 
 void loadLudoGamePieces()
 {
-    red_piece_one.renderLudoRedPiece();
-    red_piece_two.renderLudoRedPiece();
-    red_piece_three.renderLudoRedPiece();
-    red_piece_four.renderLudoRedPiece();
+    red_piece_one.renderRedPiece();
+    red_piece_two.renderRedPiece();
+    red_piece_three.renderRedPiece();
+    red_piece_four.renderRedPiece();
 
-    green_piece_one.renderLudoGreenPiece();
-    green_piece_two.renderLudoGreenPiece();
-    green_piece_three.renderLudoGreenPiece();
-    green_piece_four.renderLudoGreenPiece();
+    green_piece_one.renderGreenPiece();
+    green_piece_two.renderGreenPiece();
+    green_piece_three.renderGreenPiece();
+    green_piece_four.renderGreenPiece();
 
-    blue_piece_one.renderLudoBluePiece();
-    blue_piece_two.renderLudoBluePiece();
-    blue_piece_three.renderLudoBluePiece();
-    blue_piece_four.renderLudoBluePiece();
+    blue_piece_one.renderBluePiece();
+    blue_piece_two.renderBluePiece();
+    blue_piece_three.renderBluePiece();
+    blue_piece_four.renderBluePiece();
 
-    yellow_piece_one.renderLudoYellowPiece();
-    yellow_piece_two.renderLudoYellowPiece();
-    yellow_piece_three.renderLudoYellowPiece();
-    yellow_piece_four.renderLudoYellowPiece();
+    yellow_piece_one.renderYellowPiece();
+    yellow_piece_two.renderYellowPiece();
+    yellow_piece_three.renderYellowPiece();
+    yellow_piece_four.renderYellowPiece();
 }
