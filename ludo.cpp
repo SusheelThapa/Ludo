@@ -102,6 +102,12 @@ RedLudoPiece::~RedLudoPiece()
 
 void RedLudoPiece ::updateRedPiece()
 {
+    current_turn = GREEN_PIECE;
+
+    if (dice_rotate_value == 6 || dice_rotate_value == 1)
+    {
+        current_turn = RED_PIECE;
+    }
 
     if (this->getStatus() == HOME)
     {
@@ -110,10 +116,13 @@ void RedLudoPiece ::updateRedPiece()
             this->setStatus(RUNNING);
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
             this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+
+            current_turn = RED_PIECE;
         }
     }
     else if (this->getStatus() == RUNNING)
     {
+
         if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
         {
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
@@ -160,6 +169,13 @@ GreenLudoPiece::~GreenLudoPiece()
 void GreenLudoPiece ::updateGreenPiece()
 {
 
+    current_turn = YELLOW_PIECE;
+
+    if (dice_rotate_value == 6 || dice_rotate_value == 1)
+    {
+        current_turn = GREEN_PIECE;
+    }
+
     if (this->getStatus() == HOME)
     {
         if (dice_rotate_value == 1)
@@ -167,10 +183,13 @@ void GreenLudoPiece ::updateGreenPiece()
             this->setStatus(RUNNING);
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
             this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+
+            current_turn = GREEN_PIECE;
         }
     }
     else if (this->getStatus() == RUNNING)
     {
+
         if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
         {
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
@@ -216,6 +235,13 @@ BlueLudoPiece::~BlueLudoPiece()
 void BlueLudoPiece ::updateBluePiece()
 {
 
+    current_turn = RED_PIECE;
+
+    if (dice_rotate_value == 6 || dice_rotate_value == 1)
+    {
+        current_turn = BLUE_PIECE;
+    }
+
     if (this->getStatus() == HOME)
     {
         if (dice_rotate_value == 1)
@@ -223,10 +249,12 @@ void BlueLudoPiece ::updateBluePiece()
             this->setStatus(RUNNING);
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
             this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+            current_turn = BLUE_PIECE;
         }
     }
     else if (this->getStatus() == RUNNING)
     {
+
         if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
         {
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
@@ -271,6 +299,13 @@ YellowLudoPiece::~YellowLudoPiece()
 void YellowLudoPiece ::updateYellowPiece()
 {
 
+    current_turn = BLUE_PIECE;
+
+    if (dice_rotate_value == 6 || dice_rotate_value == 1)
+    {
+        current_turn = YELLOW_PIECE;
+    }
+
     if (this->getStatus() == HOME)
     {
         if (dice_rotate_value == 1)
@@ -278,10 +313,13 @@ void YellowLudoPiece ::updateYellowPiece()
             this->setStatus(RUNNING);
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);
             this->setRenderPosition(this->render_position_movement[this->getRenderPositionMovementIndex()]);
+
+            current_turn = YELLOW_PIECE;
         }
     }
     else if (this->getStatus() == RUNNING)
     {
+
         if (this->getRenderPositionMovementIndex() + dice_rotate_value < 56)
         {
             this->setRenderPositionMovementIndex(this->getRenderPositionMovementIndex() + dice_rotate_value);

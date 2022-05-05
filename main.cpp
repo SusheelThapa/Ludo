@@ -34,7 +34,7 @@ int main()
                     /*after rotation of the dice it execute when user pressed over peice it move that piece*/
                     if (ludo_game_events.type == SDL_MOUSEBUTTONDOWN && dice_rotated == true)
                     {
-                        
+
                         SDL_Point mouse_clicked_position;
 
                         SDL_GetMouseState(&mouse_clicked_position.x, &mouse_clicked_position.y);
@@ -60,7 +60,6 @@ int main()
                                 red_piece_four.updateRedPiece();
                             }
 
-                            current_turn = GREEN_PIECE;
                             break;
                         case GREEN_PIECE:
 
@@ -80,7 +79,6 @@ int main()
                             {
                                 green_piece_four.updateGreenPiece();
                             }
-                            current_turn = YELLOW_PIECE;
                             break;
                         case YELLOW_PIECE:
 
@@ -101,7 +99,6 @@ int main()
                                 yellow_piece_four.updateYellowPiece();
                             }
 
-                            current_turn = BLUE_PIECE;
                             break;
                         case BLUE_PIECE:
 
@@ -122,7 +119,6 @@ int main()
                                 blue_piece_four.updateBluePiece();
                             }
 
-                            current_turn = RED_PIECE;
                             break;
                         }
 
