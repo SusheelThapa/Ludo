@@ -46,18 +46,22 @@ int main()
                             if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == red_piece_one.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == red_piece_one.getRenderPosition().y)
                             {
                                 red_piece_one.updateRedPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == red_piece_two.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == red_piece_two.getRenderPosition().y)
                             {
                                 red_piece_two.updateRedPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == red_piece_three.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == red_piece_three.getRenderPosition().y)
                             {
                                 red_piece_three.updateRedPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == red_piece_four.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == red_piece_four.getRenderPosition().y)
                             {
                                 red_piece_four.updateRedPiece();
+                                dice_rotated = false;
                             }
 
                             break;
@@ -66,18 +70,22 @@ int main()
                             if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == green_piece_one.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == green_piece_one.getRenderPosition().y)
                             {
                                 green_piece_one.updateGreenPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == green_piece_two.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == green_piece_two.getRenderPosition().y)
                             {
                                 green_piece_two.updateGreenPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == green_piece_three.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == green_piece_three.getRenderPosition().y)
                             {
                                 green_piece_three.updateGreenPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == green_piece_four.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == green_piece_four.getRenderPosition().y)
                             {
                                 green_piece_four.updateGreenPiece();
+                                dice_rotated = false;
                             }
                             break;
                         case YELLOW_PIECE:
@@ -85,14 +93,17 @@ int main()
                             if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == yellow_piece_one.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == yellow_piece_one.getRenderPosition().y)
                             {
                                 yellow_piece_one.updateYellowPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == yellow_piece_two.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == yellow_piece_two.getRenderPosition().y)
                             {
                                 yellow_piece_two.updateYellowPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == yellow_piece_three.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == yellow_piece_three.getRenderPosition().y)
                             {
                                 yellow_piece_three.updateYellowPiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == yellow_piece_four.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == yellow_piece_four.getRenderPosition().y)
                             {
@@ -105,24 +116,26 @@ int main()
                             if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == blue_piece_one.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == blue_piece_one.getRenderPosition().y)
                             {
                                 blue_piece_one.updateBluePiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == blue_piece_two.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == blue_piece_two.getRenderPosition().y)
                             {
                                 blue_piece_two.updateBluePiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == blue_piece_three.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == blue_piece_three.getRenderPosition().y)
                             {
                                 blue_piece_three.updateBluePiece();
+                                dice_rotated = false;
                             }
                             else if (mouse_clicked_position.x * 15 / LUDO_BOARD_WIDTH == blue_piece_four.getRenderPosition().x && mouse_clicked_position.y * 15 / LUDO_BOARD_HEIGHT == blue_piece_four.getRenderPosition().y)
                             {
                                 blue_piece_four.updateBluePiece();
+                                dice_rotated = false;
                             }
 
                             break;
                         }
-
-                        dice_rotated = false;
                     }
                 }
 
